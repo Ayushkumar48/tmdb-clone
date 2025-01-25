@@ -50,7 +50,7 @@ export default function MovieId({ id, type }) {
   console.log(movieData);
   return movieData ? (
     <div className="flex flex-col gap-8 w-full">
-      <div className="w-full relative h-[650px]">
+      <div className="w-full relative min-h-[650px]">
         {movieData.movie.backdrop_path ? (
           <img
             src={imgBaseUrl + movieData.movie.backdrop_path}

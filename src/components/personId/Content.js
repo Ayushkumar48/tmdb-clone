@@ -48,7 +48,7 @@ export default function Content({ person, credits }) {
           )}
         </div>
         <div className="flex flex-col gap-2">
-          <h5 className="text-2xl font-semibold">Biography</h5>
+          <h5 className="text-2xl font-semibold">Known For</h5>
           <KnownFor
             credits={allCredits
               .sort((a, b) => b.popularity - a.popularity)

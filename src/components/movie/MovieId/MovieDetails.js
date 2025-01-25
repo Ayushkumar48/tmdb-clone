@@ -55,7 +55,7 @@ export default function MovieDetails({
       ? certifications.release_dates.find((item) => item.certification !== "")
       : certifications;
   return (
-    <div className="flex flex-row px-16 h-full gap-10 w-full relative bg-[#0000000a] py-12">
+    <div className="flex flex-row pl-16 h-full gap-10 w-full relative bg-[#0000000a] py-12">
       <div>
         <div className="h-[450px]">
           {movie.poster_path || movie.backdrop_path ? (
@@ -172,7 +172,9 @@ export default function MovieDetails({
                 className={`text-white text-xl font-bold flex flex-row ring-4 shadow-4xl ring-slate-900 ${
                   comfortaa.className
                 } ${
-                  parseInt(Math.round(movie.vote_average * 10)) < 30
+                  parseInt(Math.round(movie.vote_average * 10)) === 0
+                    ? "bg-[#666666]"
+                    : parseInt(Math.round(movie.vote_average * 10)) < 30
                     ? "bg-[#571435]"
                     : parseInt(Math.round(movie.vote_average * 10)) < 70
                     ? "bg-[#423D0F]"
@@ -237,16 +239,18 @@ export default function MovieDetails({
         <div className="flex flex-col gap-2">
           <h3 className="text-lg text-[#ffffffa9] italic">{movie.tagline}</h3>
           <div className="text-xl font-semibold">Overview</div>
-          <div className="text-gray-200">{movie.overview}</div>
+          <div className="text-gray-200 line-clamp-6">{movie.overview}</div>
         </div>
         <div className="flex flex-wrap gap-y-7">
-          {credits.slice(0, 7).map((item, i) => (
+          {credits.slice(0, 5).map((item, i) => (
             <div key={i} className="w-1/3 flex flex-col gap-1">
-              <div className="font-bold">
-                <span className="hover:text-[#ffffffac] cursor-pointer">
-                  {item.name}
-                </span>
-              </div>
+              <a
+                href={`/person/${item.id}`}
+                className="hover:text-[#ffffffac] font-bold"
+              >
+                {item.name}
+              </a>
+
               <div className="text-sm">{item.jobs.join(", ")}</div>
             </div>
           ))}

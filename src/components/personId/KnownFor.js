@@ -53,8 +53,11 @@ export default function KnownFor({ credits }) {
                 loading="lazy"
               />
             </div>
-            <div className="text-[16.5px] text-center">
-              {item.title || item.original_title}
+            <div className="text-[16.5px] text-center hover:text-[#05b4e3]">
+              {item.title ||
+                item.original_title ||
+                item.name ||
+                item.original_name}
             </div>
           </a>
         ))}

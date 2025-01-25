@@ -30,7 +30,7 @@ export default function MainPicture() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center mx-20">
       <div className="relative h-[29rem] w-full">
         <ul className="flex flex-row brightness-[0.5] h-full w-full">
           {data.slice(0, 5).map((d, i) =>

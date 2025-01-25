@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import axios from "axios";
 import SideInfo from "@/components/personId/SideInfo";
 import Content from "@/components/personId/Content";
+import Skeleton from "@/components/personId/PersonSkeleton";
 
 export default function PersonId() {
   const [personDetails, setPersonDetails] = useState(null);
@@ -41,7 +42,7 @@ export default function PersonId() {
   }, [personId]);
 
   if (!personDetails) {
-    return <div>Loading...</div>;
+    return <Skeleton />;
   }
 
   return (
