@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
+import Markdown from "react-markdown";
 
 const imgBaseUrl = "https://image.tmdb.org/t/p/original";
 
@@ -81,7 +82,9 @@ export default function Review({ reviews }) {
             </div>
           </div>
         </div>
-        <div className="line-clamp-3">{review.content}</div>
+        <div className="line-clamp-3">
+          <Markdown>{review.content}</Markdown>
+        </div>
       </div>
       <button className="pt-4 text-xl font-semibold hover:opacity-60">
         Read All Reviews
