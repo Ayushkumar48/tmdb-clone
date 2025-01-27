@@ -1,54 +1,56 @@
+"use client";
 import MainPicture from "@/components/app/MainPicture";
 import Cards from "@/components/app/Cards";
 import GenreCards from "@/components/app/GenreCards";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Home() {
-  const trendingPaths = [
-    {
-      path: "/trending/all/day?language=en-US",
-      for: "Today",
+  const [data, setData] = useState({
+    trending: {
+      1: new Array(12).fill(null),
+      2: new Array(12).fill(null),
     },
-    {
-      path: "/trending/all/week?language=en-US",
-      for: "This Week",
+    popular: {
+      1: new Array(12).fill(null),
+      2: new Array(12).fill(null),
+      3: new Array(12).fill(null),
+      4: new Array(12).fill(null),
     },
-  ];
+    freeToWatch: {
+      1: new Array(12).fill(null),
+      2: new Array(12).fill(null),
+    },
+  });
 
-  const popularPaths = [
-    {
-      path: `/tv/on_the_air?language=en-US&page=1`,
-      for: "Streaming",
-    },
-    {
-      path: `/tv/popular?language=en-US&page=1`,
-      for: "On TV",
-    },
-    {
-      path: `/movie/popular?language=en-US&page=1`,
-      for: "In Theaters",
-    },
-    {
-      path: `/movie/now_playing?language=en-US&page=1`,
-      for: "Latest Releases",
-    },
-  ];
-  const freeToWatch = [
-    {
-      path: `/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_watch_monetization_types=free`,
-      for: "Movies",
-    },
-    {
-      path: `/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_watch_monetization_types=free`,
-      for: "TV",
-    },
-  ];
+  useEffect(() => {
+    const fetchDetails = async () => {
+      try {
+        const paths = [
+          "/trending/all/day?language=en-US",
+          "/trending/all/week?language=en-US",
+          "/tv/on_the_air?language=en-US&page=1",
+          "/tv/popular?language=en-US&page=1",
+          "/movie/popular?language=en-US&page=1",
+          "/movie/now_playing?language=en-US&page=1",
+          "/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&watch_region=IN&with_watch_monetization_types=free",
+          "/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&watch_region=IN&with_watch_monetization_types=free",
+        ];
+        const response = await axios.post("/api/frontpage", { paths });
+        setData(response.data.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchDetails();
+  }, []);
 
   return (
     <main className="flex flex-col gap-10 mb-10">
       <MainPicture />
-      <Cards name="Trending" path={trendingPaths} />
-      <Cards name="What's Popular" path={popularPaths} />
-      <Cards name="Free To Watch" path={freeToWatch} />
+      <Cards path={data.trending}>Trending</Cards>
+      <Cards path={data.popular}>What&apos;s Popular</Cards>
+      <Cards path={data.freeToWatch}>Free To Watch</Cards>
       <GenreCards name="Genre" />
     </main>
   );

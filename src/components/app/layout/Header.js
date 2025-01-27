@@ -35,9 +35,9 @@ export default function Header() {
     {
       name: "More",
       lists: [
-        { href: "/discuss", menuItem: "Discussions" },
-        { href: "/leaderboard", menuItem: "Leaderboard" },
-        { href: "/talk", menuItem: "Support" },
+        { href: "#", menuItem: "Discussions" },
+        { href: "#", menuItem: "Leaderboard" },
+        { href: "#", menuItem: "Support" },
       ],
     },
   ];

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const imgBase = "https://image.tmdb.org/t/p/original";
 
-export default function WhereToWatch({ children, type }) {
+export default function WhereToWatch({ children, type, sendWhereToWatch }) {
   const [country, setCountry] = useState([]);
   const [watchProviders, setWatchProviders] = useState([]);
   const [open, setOpen] = useState(false);
@@ -34,7 +34,6 @@ export default function WhereToWatch({ children, type }) {
     };
     fetchData();
   }, [type]);
-  const [selected, setSelected] = useState(country[0]);
   return (
     <div className="shadow-lg rounded-md ring-1 w-full ring-gray-900/10">
       <button
@@ -61,7 +60,10 @@ export default function WhereToWatch({ children, type }) {
               className="hover:cursor-pointer bg-slate-300 px-2 py-1.5 rounded-lg shadow ring-inset ring-1 ring-gray-400 hover:ring-0 hover:bg-slate-200 duration-150 ease-in-out outline-none"
               name="data"
               value={selectedCountry}
-              onChange={(e) => setSelectedCountry(e.target.value)}
+              onChange={(e) => {
+                setSelectedCountry(e.target.value);
+                sendWhereToWatch(e.target.value, 2);
+              }}
             >
               {country.map((item, i) => (
                 <option

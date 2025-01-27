@@ -55,14 +55,25 @@ export default function MovieDetails({
       ? certifications.release_dates.find((item) => item.certification !== "")
       : certifications;
   return (
-    <div className="flex flex-row pl-16 h-full gap-10 w-full relative bg-[#0000000a] py-12">
-      <div>
-        <div className="h-[450px]">
+    <div
+      className="flex flex-row pl-16 h-full gap-10 w-full relative py-10 bg-cover bg-center bg-black/50 bg-blend-overlay"
+      style={
+        movie.poster_path || movie.backdrop_path
+          ? {
+              backgroundImage: `url('${
+                imgBaseUrl + (movie.poster_path || movie.backdrop_path)
+              }')`,
+            }
+          : { backgroundColor: "#1f2937" }
+      }
+    >
+      <div className="w-[21.6%]">
+        <div className="h-[450px] w-full">
           {movie.poster_path || movie.backdrop_path ? (
             <img
               src={imgBaseUrl + (movie.poster_path || movie.backdrop_path)}
               alt="image"
-              className={`w-full h-full ${
+              className={`w-full h-full object-cover ${
                 watchProvider.length ? "rounded-t-lg" : "rounded-lg"
               }`}
               loading="lazy"

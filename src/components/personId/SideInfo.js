@@ -12,7 +12,6 @@ import React from "react";
 const imgBase = "https://image.tmdb.org/t/p/original";
 
 export default function SideInfo({ person, social, knownCredits }) {
-  // console.log(person.also_known_as);
   return (
     <div className="flex flex-col gap-10 w-[25%]">
       <div className="w-full">

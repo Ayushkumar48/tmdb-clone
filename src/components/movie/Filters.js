@@ -2,17 +2,20 @@
 import { ArrowForwardIos } from "@mui/icons-material";
 import { Box, Divider, Slider } from "@mui/material";
 import axios from "axios";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
-export default function Filters({ children, type }) {
+export default function Filters({ children, type, sendFilters }) {
   const [open, setOpen] = useState(true);
   const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState(() => {
-    return new Date().toISOString().split("T")[0];
-  });
+  const [toDate, setToDate] = useState(dayjs().format("YYYY-MM-DD"));
   const [genres, setGenres] = useState([]);
   const [userScore, setUserScore] = useState(4);
   const [showMe, setShowMe] = useState("everything");
+  const [genreToFetch, setGenreToFetch] = useState([]);
+  useEffect(() => {
+    sendFilters({ toDate, fromDate, genreToFetch, userScore });
+  }, [toDate, fromDate, genreToFetch, userScore, sendFilters]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,13 +104,23 @@ export default function Filters({ children, type }) {
           <div className="px-3 pt-2">Genres</div>
           <div className="flex flex-wrap gap-3 px-3 py-3">
             {genres.map((item, i) => (
-              <a
-                href="#"
+              <button
                 key={i}
-                className="py-0.5 px-2.5 rounded-full shadow ring-1 ring-gray-400 hover:bg-[#01B4E4] hover:ring-0 hover:text-white duration-150 ease-in-out"
+                className={`py-0.5 px-2.5 rounded-full shadow ring-1 active:bg-[#1e88a6] ring-gray-400 hover:bg-[#01B4E4] hover:ring-0 hover:text-white duration-150 ease-in-out ${
+                  genreToFetch.includes(item.id)
+                    ? "bg-[#01B4E4] text-white"
+                    : ""
+                }`}
+                onClick={() =>
+                  setGenreToFetch((prev) =>
+                    prev.includes(item.id)
+                      ? prev.filter((a) => a !== item.id)
+                      : [...prev, item.id]
+                  )
+                }
               >
                 {item.name}
-              </a>
+              </button>
             ))}
           </div>
           <Divider />

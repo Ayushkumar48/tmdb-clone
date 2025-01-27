@@ -20,7 +20,6 @@ export default function Career({ career }) {
   const sortedYears = Object.keys(groupedCareer).sort(
     (a, b) => parseInt(b) - parseInt(a)
   );
-  console.log(career);
   return (
     <div className="rounded-lg ring-1 ring-gray-300 shadow-lg py-5 flex flex-col gap-4">
       {sortedYears.map((year, index) => {

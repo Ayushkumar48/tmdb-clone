@@ -2,12 +2,11 @@
 import ImageIcon from "@mui/icons-material/Image";
 import React from "react";
 
-export default function Seasons({ movie, type }) {
-  const imgBaseUrl = "https://image.tmdb.org/t/p/original";
+const imgBaseUrl = "https://image.tmdb.org/t/p/original";
+export default function Seasons({ movie }) {
   const currentSeason = movie.seasons.find(
     (item) => item.season_number === movie.last_episode_to_air.season_number
   );
-  console.log(currentSeason.poster_path, movie.backdrop_path);
 
   return (
     <div className="flex flex-col pl-4 gap-4">
@@ -16,10 +15,15 @@ export default function Seasons({ movie, type }) {
       </h2>
       <div className="flex flex-row ring-1 ring-gray-300 rounded-lg shadow-xl">
         <div>
-          {!(currentSeason.poster_path || movie.backdrop_path) ? (
+          {currentSeason.poster_path ||
+          movie.backdrop_path ||
+          movie.poster_path ? (
             <img
               src={
-                imgBaseUrl + (currentSeason.poster_path || movie.backdrop_path)
+                imgBaseUrl +
+                (currentSeason.poster_path ||
+                  movie.backdrop_path ||
+                  movie.poster_path)
               }
               alt={movie.name}
               className="h-full w-48 rounded-l-lg"

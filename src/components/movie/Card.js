@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { CircularProgress } from "@mui/joy";
-import { Percent } from "@mui/icons-material";
+import { BrokenImage, Percent } from "@mui/icons-material";
 import { Skeleton } from "@mui/material";
 import { Comfortaa } from "next/font/google";
 
@@ -53,30 +53,52 @@ export default function Card({ data, type }) {
                 className="w-full h-[280px] object-cover rounded-t-lg brightness-90"
                 loading="lazy"
               />
-            ) : null}
+            ) : (
+              <div className="h-[280px] w-full flex justify-center items-center">
+                <BrokenImage className="scale-[3] text-gray-500" />
+              </div>
+            )}
             <div className="absolute -bottom-5 left-2 bg-black rounded-full brightness-[1.3]">
               <CircularProgress
                 size="md"
                 thickness={3}
                 determinate
                 variant="plain"
+                className="bg-slate-900 font-bold hover:scale-110 hover:cursor-pointer duration-150 ease-in-out ring-1 ring-gray-600 ring-inset"
                 value={parseInt(Math.round(data.vote_average * 10))}
-                color={
-                  parseInt(Math.round(data.vote_average * 10)) < 30
-                    ? "danger"
-                    : parseInt(Math.round(data.vote_average * 10)) < 70
-                    ? "warning"
-                    : "success"
-                }
+                sx={{
+                  "--CircularProgress-progressColor":
+                    parseInt(Math.round(data.vote_average * 10)) < 30
+                      ? "#DB2360"
+                      : parseInt(Math.round(data.vote_average * 10)) < 70
+                      ? "#D2D531"
+                      : "#21D07A",
+                }}
               >
-                <div className="text-white text-[14px] font-extrabold flex flex-row items-baseline">
-                  <div className={`${comfortaa.className}`}>
-                    {parseInt(Math.round(data.vote_average * 10)) === 0
-                      ? "NR"
-                      : parseInt(Math.round(data.vote_average * 10))}
-                  </div>
-                  <div className="text-[7px]">
-                    <Percent fontSize="inherit" />
+                <div
+                  className={`text-white text-[14px] font-bold flex flex-row ring-4 shadow-4xl ring-slate-900 ${
+                    comfortaa.className
+                  } ${
+                    parseInt(Math.round(data.vote_average * 10)) === 0
+                      ? "bg-[#666666]"
+                      : parseInt(Math.round(data.vote_average * 10)) < 30
+                      ? "bg-[#571435]"
+                      : parseInt(Math.round(data.vote_average * 10)) < 70
+                      ? "bg-[#423D0F]"
+                      : "bg-[#204529]"
+                  } rounded-full justify-center items-center w-full h-full`}
+                >
+                  <div className="relative w-[81%] h-[81%] flex justify-center items-center bg-slate-900 rounded-full ring-1 ring-slate-900 pr-[4px]">
+                    {parseInt(Math.round(data.vote_average * 10)) === 0 ? (
+                      "NR"
+                    ) : (
+                      <>
+                        {parseInt(Math.round(data.vote_average * 10))}
+                        <div className="absolute top-[0.75px] left-[22px]">
+                          <Percent sx={{ fontSize: "6px" }} />
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </CircularProgress>

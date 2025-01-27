@@ -8,7 +8,7 @@ export async function generateMetadata({ params }) {
     "host"
   )}`;
 
-  const movieId = params.movieId;
+  const movieId = (await params).movieId;
   try {
     const response = await fetch(`${baseUrl}/api`, {
       method: "GET",
@@ -24,9 +24,9 @@ export async function generateMetadata({ params }) {
     const data = (await response.json()).data;
 
     return {
-      title: `${data.title || data.original_title} (${
-        data.release_date.split("-")[0]
-      }) - The Movie Database (TMDB) - Clone`,
+      title: `${data.title || data.original_title} ${
+        data.release_date ? `(${data.release_date.split("-")[0]})` : ""
+      } - The Movie Database (TMDB) - Clone`,
     };
   } catch (error) {
     console.error("Metadata generation error:", error);
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function MovieId({ params }) {
-  const movieId = params.movieId;
+  const movieId = (await params).movieId;
 
   const headersList = await headers();
   const baseUrl = `${headersList.get("x-forwarded-proto")}://${headersList.get(

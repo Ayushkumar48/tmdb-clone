@@ -28,7 +28,6 @@ export default function Person() {
 
     fetchData();
   }, [page]);
-  console.log(response);
   const skeletonArray = new Array(20).fill(null);
   return (
     <div className="mx-10 py-6">

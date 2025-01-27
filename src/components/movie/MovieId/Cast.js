@@ -23,7 +23,6 @@ export default function Cast({ cast }) {
     }
   }, []);
 
-  console.log(cast);
   return (
     <div className="flex flex-col">
       <h2 className="text-2xl font-semibold pl-4">Top Billed Cast</h2>
@@ -41,45 +40,52 @@ export default function Cast({ cast }) {
             scrollBehavior: "smooth",
           }}
         >
-          {cast.slice(0, 10).map((item, i) => (
-            <div
-              key={i}
-              className="flex flex-col bg-white shadow-xl rounded-lg ring-1 ring-slate-200 min-w-36"
-            >
-              <a
-                className={`h-[12rem] flex justify-center items-center ${
-                  item.profile_path ? "" : "bg-gray-300 rounded-t-lg w-full"
-                }`}
-                href={`/person/${item.id}`}
+          {cast?.length ? (
+            cast.slice(0, 10).map((item, i) => (
+              <div
+                key={i}
+                className="flex flex-col bg-white shadow-xl rounded-lg ring-1 ring-slate-200 min-w-36"
               >
-                {item.profile_path ? (
-                  <img
-                    src={imgBaseUrl + item.profile_path}
-                    alt={item.name}
-                    className={`h-full object-cover rounded-t-lg w-full`}
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-full h-full rounded-lg">
-                    <img
-                      src={item.gender === 2 ? "/male.svg" : "/female.svg"}
-                      alt=""
-                      className="w-full h-full scale-50"
-                    />
-                  </div>
-                )}
-              </a>
-              <div className="px-2 py-2">
                 <a
-                  className="font-bold text-[16.5px] hover:opacity-60"
-                  href="#"
+                  className={`h-[12rem] flex justify-center items-center ${
+                    item.profile_path ? "" : "bg-gray-300 rounded-t-lg w-full"
+                  }`}
+                  href={`/person/${item.id}`}
                 >
-                  {item.name}
+                  {item.profile_path ? (
+                    <img
+                      src={imgBaseUrl + item.profile_path}
+                      alt={item.name}
+                      className={`h-full object-cover rounded-t-lg w-full`}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full rounded-lg">
+                      <img
+                        src={item.gender === 2 ? "/male.svg" : "/female.svg"}
+                        alt=""
+                        className="w-full h-full scale-50"
+                      />
+                    </div>
+                  )}
                 </a>
-                <div className="text-[15px]">{item.character}</div>
+                <div className="px-2 py-2">
+                  <a
+                    className="font-bold text-[16.5px] hover:opacity-60"
+                    href="#"
+                  >
+                    {item.name}
+                  </a>
+                  <div className="text-[15px]">{item.character}</div>
+                </div>
               </div>
+            ))
+          ) : (
+            <div>
+              We don&apos;t have any cast added to this movie. You can help by
+              adding some!
             </div>
-          ))}
+          )}
           {cast.length >= 10 ? (
             <div className="flex justify-center items-center">
               <button className="font-bold whitespace-nowrap hover:text-[#00000075]">
@@ -99,8 +105,15 @@ export default function Cast({ cast }) {
           `}
         ></div>
       </div>
+
       <div className="mt-4 font-semibold pl-4">
-        <button className="hover:opacity-60 text-lg">Full Cast & Crew</button>
+        {cast?.length ? (
+          <button className="hover:opacity-60 text-lg">Full Cast & Crew</button>
+        ) : (
+          <button className="hover:opacity-60 text-lg">
+            Add Missing Cast & Crew
+          </button>
+        )}
       </div>
     </div>
   );

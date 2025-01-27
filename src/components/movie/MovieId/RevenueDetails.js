@@ -139,9 +139,9 @@ export default function RevenueDetails({ movie, keywords, type }) {
             </div>
           </div>
         ) : null}
-        {keywords ? (
-          <div className="flex flex-col gap-1">
-            <div className="text-xl font-semibold">Keywords</div>
+        <div className="flex flex-col gap-1">
+          <div className="text-xl font-semibold">Keywords</div>
+          {keywords[0] ? (
             <div className="flex flex-wrap gap-2">
               {keywords.slice(0, 20).map((item, i) => (
                 <a href="#" key={i}>
@@ -151,8 +151,10 @@ export default function RevenueDetails({ movie, keywords, type }) {
                 </a>
               ))}
             </div>
-          </div>
-        ) : null}
+          ) : (
+            <div>No keywords have been added.</div>
+          )}
+        </div>
       </div>
     </div>
   );

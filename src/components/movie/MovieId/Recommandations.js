@@ -2,6 +2,7 @@
 import React from "react";
 import { Box } from "@mui/joy";
 import { useState, useRef, useEffect } from "react";
+import { BrokenImage } from "@mui/icons-material";
 
 const imgBaseUrl = "https://image.tmdb.org/t/p/original";
 
@@ -49,17 +50,23 @@ export default function Recommandations({ recommendations, type }) {
               className="w-full flex flex-col gap-4"
             >
               <div className="w-72">
-                <img
-                  src={imgBaseUrl + (item.backdrop_path || item.poster_path)}
-                  alt={
-                    item.title ||
-                    item.original_title ||
-                    item.name ||
-                    item.original_name
-                  }
-                  className="w-full h-40 object-cover rounded-lg brightness-90 ring-1 ring-gray-400 hover:shadow-xl duration-150 ease-in-out"
-                  loading="lazy"
-                />
+                {item.backdrop_path || item.poster_path ? (
+                  <img
+                    src={imgBaseUrl + (item.backdrop_path || item.poster_path)}
+                    alt={
+                      item.title ||
+                      item.original_title ||
+                      item.name ||
+                      item.original_name
+                    }
+                    className="w-full h-40 object-cover rounded-lg brightness-90 ring-1 ring-gray-400 hover:shadow-xl duration-150 ease-in-out"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="w-full h-40 flex justify-center items-center ring-1 shadow-md rounded-lg ring-gray-400 hover:shadow-xl duration-150 ease-in-out">
+                    <BrokenImage className="scale-[2.5] text-gray-500" />
+                  </div>
+                )}
               </div>
               <div className="flex flex-row justify-between max-w-72">
                 <div className="font-semibold text-[16.5px] pl-2 truncate w-[80%]">

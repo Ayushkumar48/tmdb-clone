@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import Cast from "@/components/movie/MovieId/Cast";
 import MovieDetails from "@/components/movie/MovieId/MovieDetails";
@@ -10,8 +9,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import MovieSkeleton from "@/components/movie/MovieId/MovieSkeleton";
 import Seasons from "@/components/tvId/Seasons";
-
-const imgBaseUrl = "https://image.tmdb.org/t/p/original";
 
 export default function MovieId({ id, type }) {
   const [movieData, setMovieData] = useState(null);
@@ -47,20 +44,9 @@ export default function MovieId({ id, type }) {
     fetchMovieData();
   }, [id, type]);
 
-  console.log(movieData);
   return movieData ? (
     <div className="flex flex-col gap-8 w-full">
-      <div className="w-full relative min-h-[650px]">
-        {movieData.movie.backdrop_path ? (
-          <img
-            src={imgBaseUrl + movieData.movie.backdrop_path}
-            alt="movie"
-            className="w-full h-full brightness-[.20] opacity-[0.9] object-cover inset-0 object-top select-none absolute"
-            loading="lazy"
-          />
-        ) : (
-          <div className="w-full h-full bg-gray-800 brightness-[.20] opacity-[0.9] absolute"></div>
-        )}
+      <div className="w-full relative">
         <MovieDetails
           movie={movieData.movie}
           certifications={movieData.certifications}
@@ -77,7 +63,7 @@ export default function MovieId({ id, type }) {
           <Divider />
           {type === "tv" ? (
             <>
-              <Seasons movie={movieData.movie} type={type} />
+              <Seasons movie={movieData.movie} />
               <Divider />
             </>
           ) : null}

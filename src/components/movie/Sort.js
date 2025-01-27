@@ -1,20 +1,33 @@
 "use client";
 import { ArrowForwardIos } from "@mui/icons-material";
 import { Divider } from "@mui/material";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const list = [
-  "Popularity Decending",
-  "Popularity Increasing",
-  "Rating Decending",
-  "Rating Increasing",
-  "Release Date Decreasing",
-  "Release Date Increasing",
-  "Title (A-Z)",
-  "Title (Z-A)",
-];
+export default function Sort({ children, sendSort }) {
+  const path = usePathname().split("/")[1];
 
-export default function Sort({ children }) {
+  const movie = [
+    "popularity.desc",
+    "popularity.asc",
+    "vote_average.desc",
+    "vote_average.asc",
+    "primary_release_date.desc",
+    "primary_release_date.asc",
+    "title.desc",
+    "title.asc",
+  ];
+  const tv = [
+    "popularity.desc",
+    "popularity.asc",
+    "vote_average.desc",
+    "vote_average.asc",
+    "first_air_date.desc",
+    "first_air_date.asc",
+    "name.desc",
+    "name.asc",
+  ];
+  const list = path === "movie" ? movie : tv;
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(list[0]);
   return (
@@ -37,7 +50,10 @@ export default function Sort({ children }) {
               className="hover:cursor-pointer bg-slate-300 px-2 py-1.5 rounded-lg shadow ring-inset ring-1 ring-gray-400 hover:ring-0 hover:bg-slate-200 duration-150 ease-in-out outline-none"
               name="data"
               value={selected}
-              onChange={(e) => setSelected(e.target.value)}
+              onChange={(e) => {
+                setSelected(e.target.value);
+                sendSort(e.target.value, 1);
+              }}
             >
               {list.map((item, i) => (
                 <option
@@ -45,7 +61,14 @@ export default function Sort({ children }) {
                   key={i}
                   className="px-2 py-1 bg-white text-black checked:bg-[#01B3E4] checked:text-white"
                 >
-                  {item}
+                  {item.split(".")[0] === "vote_average"
+                    ? "Rating"
+                    : item
+                        .split(".")[0]
+                        .split("_")
+                        .map((d) => d[0].toUpperCase() + d.slice(1))
+                        .join(" ")}{" "}
+                  {item.split(".")[1] === "asc" ? "Ascending" : "Descending"}
                 </option>
               ))}
             </select>

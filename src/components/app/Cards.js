@@ -1,5 +1,4 @@
 "use client";
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import Tabs from "@mui/joy/Tabs";
@@ -7,36 +6,11 @@ import TabList from "@mui/joy/TabList";
 import Tab, { tabClasses } from "@mui/joy/Tab";
 import TabPanel from "@mui/joy/TabPanel";
 
-export default function Cards({ name, path }) {
-  const [data, setData] = useState(
-    path.map(() => ({
-      results: new Array(12).fill(null),
-    }))
-  );
+export default function Cards({ path, children }) {
+  const [data, setData] = useState(path);
   const [value, setValue] = useState("1");
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const requests = path.map((p) =>
-          axios.get("/api", {
-            headers: {
-              path: p.path,
-            },
-          })
-        );
-
-        const responses = await Promise.all(requests);
-
-        const fetchedData = responses.map((response) => response.data.data);
-
-        setData(fetchedData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
+    setData(path);
   }, [path]);
 
   const handleChange = (event, newValue) => {
@@ -52,7 +26,7 @@ export default function Cards({ name, path }) {
         sx={{ bgcolor: "transparent" }}
       >
         <div className="flex flex-row gap-8 items-center ml-8">
-          <div className="text-2xl font-medium duration-300">{name}</div>
+          <div className="text-2xl font-medium duration-300">{children}</div>
           <TabList
             disableUnderline
             sx={{
@@ -71,7 +45,7 @@ export default function Cards({ name, path }) {
               },
             }}
           >
-            {path.map((p, index) => (
+            {Object.entries(data).map(([k, v], index) => (
               <Tab key={index} disableIndicator value={(index + 1).toString()}>
                 <div
                   className={
@@ -80,15 +54,15 @@ export default function Cards({ name, path }) {
                       : "text-black"
                   }
                 >
-                  {p.for}
+                  {v[0] ? k.split("_").join(" ") : null}
                 </div>
               </Tab>
             ))}
           </TabList>
         </div>
-        {data.map((d, index) => (
+        {Object.entries(data).map(([k, v], index) => (
           <TabPanel key={index} value={(index + 1).toString()}>
-            <Card data={d.results} />
+            <Card data={v} />
           </TabPanel>
         ))}
       </Tabs>
