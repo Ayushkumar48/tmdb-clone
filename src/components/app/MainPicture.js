@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ArrowRightAlt } from "@mui/icons-material";
@@ -9,46 +8,21 @@ const manrope = Manrope({
   subsets: ["latin"],
 });
 
-const imgBase = "https://image.tmdb.org/t/p/original";
-
 export default function MainPicture() {
-  const [data, setData] = useState(new Array(10).fill(null));
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get("/api", {
-        headers: {
-          path: "/trending/all/week?language=en-US",
-        },
-      });
-
-      if (response.data.data && response.data.data.results) {
-        setData(response.data.data.results);
-      }
-    };
-    fetchData();
-  }, []);
-
   return (
-    <div className="flex items-center justify-center mx-20">
+    <div className="flex items-center justify-center mx-[4.8rem]">
       <div className="relative h-[29rem] w-full">
-        <ul className="flex flex-row brightness-[0.5] h-full w-full">
-          {data.slice(0, 5).map((d, i) =>
-            d ? (
-              <li key={i} className="relative w-1/5">
-                <img
-                  src={imgBase + d.backdrop_path}
-                  alt={d.original_name || d.original_title || "Image"}
-                  className="h-[29rem] object-cover w-full"
-                  loading="lazy"
-                />
-              </li>
-            ) : (
-              <li key={i} className="w-full">
-                <Skeleton height="100%" width="100%" variant="rectangular" />
-              </li>
-            )
-          )}
+        <ul className="flex flex-row brightness-[0.3] h-full w-full">
+          {[1, 2, 3, 4, 5].map((d, i) => (
+            <li key={i} className="relative w-1/5">
+              <img
+                src={`/mainpictures/${d.toString()}.webp`}
+                alt="Image"
+                className="h-full object-cover w-full"
+                loading="lazy"
+              />
+            </li>
+          ))}
         </ul>
         <div
           className={`absolute left-12 -translate-y-1/2 top-1/2 flex flex-col gap-2 text-white brightness-[1.15] ${manrope.className}`}

@@ -1,9 +1,8 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import { Box } from "@mui/joy";
 import { useState, useRef, useEffect } from "react";
 
-export default function GenreCard({ data }) {
+export default function GenreCard({ data, type }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const boxRef = useRef(null);
 
@@ -40,7 +39,13 @@ export default function GenreCard({ data }) {
         }}
       >
         {data.genres.map((item, i) => (
-          <a href="/" key={i} className="w-full flex flex-col gap-4">
+          <a
+            href={`/${type === "TV" ? "tv" : "movie"}/genre?g=${
+              item.id
+            }&name=${item.name.split(" ").join("_")}`}
+            key={i}
+            className="w-full flex flex-col gap-4"
+          >
             <div className="w-44 hover:scale-110 duration-200 ease-in-out">
               <img
                 src={`/${data.name.toLowerCase()}/${item.id.toString()}.jpg`}

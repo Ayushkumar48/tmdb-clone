@@ -6,7 +6,7 @@ import Tab, { tabClasses } from "@mui/joy/Tab";
 import TabPanel from "@mui/joy/TabPanel";
 import GenreCard from "./GenreCard";
 
-export default function Cards({ name }) {
+export default function GenreCards({ name }) {
   const data = [
     {
       name: "Movies",
@@ -166,7 +166,7 @@ export default function Cards({ name }) {
   };
 
   return (
-    <div className="flex flex-col gap-8 pl-4">
+    <div className="flex flex-col gap-8 pl-4" id="genres">
       <Tabs
         value={value}
         onChange={handleChange}
@@ -211,7 +211,7 @@ export default function Cards({ name }) {
         </div>
         {data.map((d, index) => (
           <TabPanel key={index} value={(index + 1).toString()} sx={{ py: 2 }}>
-            <GenreCard data={d} />
+            <GenreCard data={d} type={d.name} />
           </TabPanel>
         ))}
       </Tabs>

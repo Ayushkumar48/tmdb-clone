@@ -11,23 +11,28 @@ export default function Movie({ data }) {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState("popularity.desc");
-  const [whereToWatch, setWhereToWatch] = useState("IN");
+  const [whereToWatch, setWhereToWatch] = useState({});
   const [filters, setFilters] = useState({});
-  const setData = (d, dType) => {
+  const setData = React.useCallback((d, dType) => {
     if (dType === 1) {
       setSortBy(d);
     } else if (dType === 2) {
-      setWhereToWatch(d);
+      setWhereToWatch((val) => ({
+        ...val,
+        selectedCountry: d.selectedCountry,
+        selectedWatchProviders: d.selectedWatchProviders,
+      }));
     } else {
-      setFilters((val) => {
-        val.genreToFetch = d.genreToFetch;
-        val.toDate = d.toDate;
-        val.fromDate = d.fromDate;
-        val.userScore = d.userScore;
-        return val;
-      });
+      setFilters((val) => ({
+        ...val,
+        genreToFetch: d.genreToFetch,
+        toDate: d.toDate,
+        fromDate: d.fromDate,
+        userScore: d.userScore,
+      }));
     }
-  };
+  }, []);
+
   const [path, setPath] = useState(
     `/${data.type}${data.path}?language=en-US&page=${page}`
   );
@@ -45,11 +50,15 @@ export default function Movie({ data }) {
         data.type === "movie"
           ? `primary_release_date.lte=${filters.toDate}`
           : `first_air_date.lte=${filters.toDate}`
-      }&sort_by=${sortBy}&vote_average.gte=${
-        filters.userScore
-      }&watch_region=${whereToWatch}&with_genres=${filters.genreToFetch.join(
-        "%7C"
-      )}&with_watch_monetization_types=flatrate%7Cfree%7Cads%7Crent%7Cbuy`
+      }&sort_by=${sortBy}&vote_average.gte=${filters.userScore}&watch_region=${
+        whereToWatch.selectedCountry
+      }&with_genres=${
+        filters.genreToFetch.length > 0 ? filters.genreToFetch.join("%7C") : ""
+      }&with_watch_monetization_types=flatrate%7Cfree%7Cads%7Crent%7Cbuy&with_watch_providers=${
+        whereToWatch.selectedWatchProviders.length > 0
+          ? whereToWatch.selectedWatchProviders.join("%7C")
+          : ""
+      }`
     );
   }
 

@@ -94,7 +94,13 @@ export default function Card({ data, type }) {
                     ) : (
                       <>
                         {parseInt(Math.round(data.vote_average * 10))}
-                        <div className="absolute top-[0.75px] left-[22px]">
+                        <div
+                          className={`absolute top-[0.75px] ${
+                            parseInt(Math.round(data.vote_average * 10)) === 100
+                              ? "left-[24.6px]"
+                              : "left-[22px]"
+                          }`}
+                        >
                           <Percent sx={{ fontSize: "6px" }} />
                         </div>
                       </>

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
 
-// Existing GET handler remains the same
 export async function GET(request) {
   try {
     const headers = request.headers;
@@ -22,7 +21,6 @@ export async function GET(request) {
   }
 }
 
-// New POST handler for batch fetching
 export async function POST(request) {
   try {
     const { paths, type } = await request.json();
@@ -54,12 +52,11 @@ export async function POST(request) {
           ? responses[7].data.keywords
           : responses[7].data.results,
     };
-
-    const certifications = combinedData.certifications.find(
-      (item) => item.iso_3166_1 === combinedData.movie.origin_country[0]
-    );
-    combinedData.certifications = certifications;
-
+    const cert =
+      combinedData.certifications.find(
+        (item) => item.iso_3166_1 === combinedData.movie.origin_country[0]
+      ) || combinedData.certifications[0];
+    combinedData.certifications = cert;
     return NextResponse.json({ data: combinedData });
   } catch (err) {
     console.error(err);

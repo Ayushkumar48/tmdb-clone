@@ -44,7 +44,7 @@ export default function Cast({ cast }) {
             cast.slice(0, 10).map((item, i) => (
               <div
                 key={i}
-                className="flex flex-col bg-white shadow-xl rounded-lg ring-1 ring-slate-200 min-w-36"
+                className="flex flex-col bg-white shadow-xl rounded-lg ring-1 ring-slate-200 min-w-36 max-w-36"
               >
                 <a
                   className={`h-[12rem] flex justify-center items-center ${

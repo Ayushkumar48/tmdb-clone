@@ -9,7 +9,6 @@ import {
 } from "@mui/icons-material";
 import { Comfortaa } from "next/font/google";
 import { Info } from "@mui/icons-material";
-import { Skeleton } from "@mui/material";
 const imgBaseUrl = "https://image.tmdb.org/t/p/original";
 const comfortaa = Comfortaa({
   subsets: ["latin"],
@@ -145,7 +144,9 @@ export default function MovieDetails({
                 <span>
                   {movie.first_air_date?.split("-").reverse().join("/") ||
                     movie.release_date?.split("-").reverse().join("/")}{" "}
-                  ({certifications.iso_3166_1})
+                  {certifications?.iso_3166_1
+                    ? "(" + certifications.iso_3166_1 + ")"
+                    : null}
                 </span>
                 <span>•</span>
               </>

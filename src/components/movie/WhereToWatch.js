@@ -12,6 +12,7 @@ export default function WhereToWatch({ children, type, sendWhereToWatch }) {
   const [watchProviders, setWatchProviders] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("IN");
+  const [selectedWatchProviders, setSelectedWatchProviders] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +35,17 @@ export default function WhereToWatch({ children, type, sendWhereToWatch }) {
     };
     fetchData();
   }, [type]);
+
+  useEffect(() => {
+    sendWhereToWatch(
+      {
+        selectedCountry,
+        selectedWatchProviders,
+      },
+      2
+    );
+  }, [selectedCountry, selectedWatchProviders, sendWhereToWatch]);
+
   return (
     <div className="shadow-lg rounded-md ring-1 w-full ring-gray-900/10">
       <button
@@ -62,7 +74,13 @@ export default function WhereToWatch({ children, type, sendWhereToWatch }) {
               value={selectedCountry}
               onChange={(e) => {
                 setSelectedCountry(e.target.value);
-                sendWhereToWatch(e.target.value, 2);
+                sendWhereToWatch(
+                  {
+                    selectedWatchProviders,
+                    selectedCountry,
+                  },
+                  2
+                );
               }}
             >
               {country.map((item, i) => (
@@ -77,16 +95,40 @@ export default function WhereToWatch({ children, type, sendWhereToWatch }) {
             </select>
             <div className="flex flex-wrap justify-between gap-x-1.5 gap-y-1">
               {watchProviders.map((item, i) => (
-                <div
-                  className="cursor-pointer ring-1 ring-gray-300 rounded-lg"
+                <button
+                  className="relative ring-1 ring-gray-300 rounded-lg overflow-hidden group"
                   key={i}
+                  onClick={() => {
+                    setSelectedWatchProviders((prev) =>
+                      prev.includes(item.provider_id)
+                        ? prev.filter((id) => id !== item.provider_id)
+                        : [...prev, item.provider_id]
+                    );
+                    sendWhereToWatch(
+                      {
+                        selectedWatchProviders,
+                        selectedCountry,
+                      },
+                      2
+                    );
+                  }}
                 >
                   <img
                     src={imgBase + item.logo_path}
                     alt={item.provider_name}
                     className="h-14 w-auto rounded-lg"
                   />
-                </div>
+
+                  <div
+                    className={`absolute inset-0 bg-[#03b3e4] ${
+                      selectedWatchProviders.includes(item.provider_id)
+                        ? "opacity-90"
+                        : "opacity-0 group-hover:opacity-100"
+                    } transition-opacity duration-150 ease-in-out`}
+                  >
+                    <img src="./done.svg" alt="done" className="scale-[0.55]" />
+                  </div>
+                </button>
               ))}
             </div>
           </div>
