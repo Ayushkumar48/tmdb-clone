@@ -42,7 +42,7 @@ export default function Card({ data, type }) {
       {data ? (
         <a
           href={`/${type}/${data.id}`}
-          className="w-[185px] flex flex-col gap-4 shadow-lg rounded-lg hover:shadow-2xl duration-300 ease-in-out outline outline-1 outline-gray-300"
+          className="md:w-[185px] w-[135px] flex flex-col gap-y-5 sm:gap-4 shadow-lg rounded-lg hover:shadow-2xl duration-300 ease-in-out outline outline-1 outline-gray-300"
           title={data.original_name || data.original_title || "Title"}
         >
           <div className="relative w-full duration-200 ease-in-out">
@@ -50,7 +50,7 @@ export default function Card({ data, type }) {
               <img
                 src={imgBase + (data.poster_path || data.backdrop_path)}
                 alt={data.original_name || data.original_title || "Image"}
-                className="w-full h-[280px] object-cover rounded-t-lg brightness-90"
+                className="w-full md:h-[280px] h-[230px] object-cover rounded-t-lg brightness-90"
                 loading="lazy"
               />
             ) : (
@@ -123,10 +123,10 @@ export default function Card({ data, type }) {
         </a>
       ) : (
         <div className="flex flex-col gap-4 relative">
-          <div className="relative w-[185px] h-[284px] bg-gray-200 overflow-hidden rounded-lg">
+          <div className="relative md:w-[185px] md:h-[284px] h-[230px] w-[135px] bg-gray-200 overflow-hidden rounded-lg">
             <Skeleton variant="rectangular" width="100%" height="100%" />
           </div>
-          <div className="absolute top-[76%] left-5">
+          <div className="absolute md:top-[76%] top-[72%] left-5">
             <Skeleton width={30} height={30} variant="circular" />
           </div>
           <div className="flex flex-col px-2 gap-4">
