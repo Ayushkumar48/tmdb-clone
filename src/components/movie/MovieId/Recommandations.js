@@ -6,7 +6,7 @@ import { BrokenImage } from "@mui/icons-material";
 
 const imgBaseUrl = "https://image.tmdb.org/t/p/original";
 
-export default function Recommandations({ recommendations }) {
+export default function Recommandations({ recommendations, type }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const boxRef = useRef(null);
 
@@ -45,7 +45,7 @@ export default function Recommandations({ recommendations }) {
         >
           {recommendations.map((item, i) => (
             <a
-              href={`/movie/${item.id}`}
+              href={`/${type}/${item.id}`}
               key={i}
               className="w-full flex flex-col gap-4"
             >
