@@ -55,7 +55,7 @@ export default function MovieDetails({
       : certifications;
   return (
     <div
-      className="flex flex-col lg:flex-row lg:items-start items-center lg:pl-16 h-full gap-10 w-full relative py-10 bg-cover bg-center bg-black/50 bg-blend-overlay"
+      className="flex flex-col lg:flex-row lg:items-start items-center lg:pl-16 lg:pr-12 h-full gap-10 w-full relative py-10 bg-cover bg-center bg-black/50 bg-blend-overlay"
       style={
         movie.poster_path || movie.backdrop_path
           ? {
@@ -66,7 +66,7 @@ export default function MovieDetails({
           : { backgroundColor: "#1f2937" }
       }
     >
-      <div className="lg:w-[21.6%] w-[80%]">
+      <div className="lg:w-[25%] lg:min-w-[18rem] w-[80%]">
         <div className="h-[450px] w-full">
           {movie.poster_path || movie.backdrop_path ? (
             <img
@@ -117,7 +117,7 @@ export default function MovieDetails({
           </>
         ) : null}
       </div>
-      <div className="flex flex-col gap-5 text-white justify-center w-full lg:px-0 px-3 lg:w-[70%] brightness-110">
+      <div className="flex flex-col gap-5 text-white justify-center w-full lg:px-0 px-3 lg:w-auto brightness-110">
         <div className="flex flex-col">
           <h1 className="text-4xl font-bold flex gap-2">
             <span>
@@ -172,53 +172,55 @@ export default function MovieDetails({
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <div className="flex lg:gap-2 justify-between items-center">
-            <CircularProgress
-              size="lg"
-              thickness={5}
-              determinate
-              variant="plain"
-              className="bg-slate-900 font-bold hover:scale-110 hover:cursor-pointer duration-150 ease-in-out ring-1 ring-gray-600 ring-inset"
-              value={parseInt(Math.round(movie.vote_average * 10))}
-              sx={{
-                "--CircularProgress-progressColor":
-                  parseInt(Math.round(movie.vote_average * 10)) < 30
-                    ? "#DB2360"
-                    : parseInt(Math.round(movie.vote_average * 10)) < 70
-                    ? "#D2D531"
-                    : "#21D07A",
-              }}
-            >
-              <div
-                className={`text-white text-xl font-bold flex flex-row ring-4 shadow-4xl ring-slate-900 ${
-                  comfortaa.className
-                } ${
-                  parseInt(Math.round(movie.vote_average * 10)) === 0
-                    ? "bg-[#666666]"
-                    : parseInt(Math.round(movie.vote_average * 10)) < 30
-                    ? "bg-[#571435]"
-                    : parseInt(Math.round(movie.vote_average * 10)) < 70
-                    ? "bg-[#423D0F]"
-                    : "bg-[#204529]"
-                } rounded-full justify-center items-center w-full h-full`}
+          <div className="flex lg:gap-2 justify-between lg:justify-normal items-center">
+            <div className="flex flex-row gap-4 items-center">
+              <CircularProgress
+                size="lg"
+                thickness={5}
+                determinate
+                variant="plain"
+                className="bg-slate-900 font-bold hover:scale-110 hover:cursor-pointer duration-150 ease-in-out ring-1 ring-gray-600 ring-inset"
+                value={parseInt(Math.round(movie.vote_average * 10))}
+                sx={{
+                  "--CircularProgress-progressColor":
+                    parseInt(Math.round(movie.vote_average * 10)) < 30
+                      ? "#DB2360"
+                      : parseInt(Math.round(movie.vote_average * 10)) < 70
+                      ? "#D2D531"
+                      : "#21D07A",
+                }}
               >
-                <div className="relative w-[81%] h-[81%] flex justify-center items-center bg-slate-900 rounded-full ring-1 ring-slate-900 pr-[4px]">
-                  {parseInt(Math.round(movie.vote_average * 10)) === 0 ? (
-                    "NR"
-                  ) : (
-                    <>
-                      {parseInt(Math.round(movie.vote_average * 10))}
-                      <div className="absolute top-[5.4px] left-[35px]">
-                        <Percent sx={{ fontSize: "10px" }} />
-                      </div>
-                    </>
-                  )}
+                <div
+                  className={`text-white text-xl font-bold flex flex-row ring-4 shadow-4xl ring-slate-900 ${
+                    comfortaa.className
+                  } ${
+                    parseInt(Math.round(movie.vote_average * 10)) === 0
+                      ? "bg-[#666666]"
+                      : parseInt(Math.round(movie.vote_average * 10)) < 30
+                      ? "bg-[#571435]"
+                      : parseInt(Math.round(movie.vote_average * 10)) < 70
+                      ? "bg-[#423D0F]"
+                      : "bg-[#204529]"
+                  } rounded-full justify-center items-center w-full h-full`}
+                >
+                  <div className="relative w-[81%] h-[81%] flex justify-center items-center bg-slate-900 rounded-full ring-1 ring-slate-900 pr-[4px]">
+                    {parseInt(Math.round(movie.vote_average * 10)) === 0 ? (
+                      "NR"
+                    ) : (
+                      <>
+                        {parseInt(Math.round(movie.vote_average * 10))}
+                        <div className="absolute top-[5.4px] left-[35px]">
+                          <Percent sx={{ fontSize: "10px" }} />
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
+              </CircularProgress>
+              <div className="font-bold sm:inline hidden">
+                <div>User</div>
+                <div>Score</div>
               </div>
-            </CircularProgress>
-            <div className="font-bold lg:inline hidden">
-              <div>User</div>
-              <div>Score</div>
             </div>
             {movie.status === "Released" ||
             new Date(movie.first_air_date) <= new Date() ? (
@@ -258,9 +260,11 @@ export default function MovieDetails({
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <h3 className="text-lg text-[#ffffffa9] italic">{movie.tagline}</h3>
+          <h3 className="text-lg text-[#ffffffa9] italic text-justify">
+            {movie.tagline}
+          </h3>
           <div className="text-xl font-semibold">Overview</div>
-          <div className="text-gray-200 line-clamp-6 text-justify lg:text-left">
+          <div className="text-gray-200 line-clamp-6 text-justify">
             {movie.overview}
           </div>
         </div>

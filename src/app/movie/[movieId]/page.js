@@ -57,7 +57,7 @@ export default async function MovieId({ params }) {
     }
     const data = (await response.json()).data;
 
-    if (!data || !data.title) {
+    if (!(data?.title || data?.original_title)) {
       notFound();
     }
 
