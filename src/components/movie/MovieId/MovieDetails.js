@@ -5,10 +5,13 @@ import {
   Favorite,
   FormatListBulleted,
   Image as ImageIcon,
+  OpenWith,
   Percent,
 } from "@mui/icons-material";
 import { Comfortaa } from "next/font/google";
 import { Info } from "@mui/icons-material";
+import ModelPicture from "./ModelPicture";
+import { useState } from "react";
 const imgBaseUrl = "https://image.tmdb.org/t/p/original";
 const comfortaa = Comfortaa({
   subsets: ["latin"],
@@ -21,6 +24,7 @@ export default function MovieDetails({
   watchProviders,
   credits,
   type,
+  images,
 }) {
   credits = credits.reduce((acc, { name, job, ...rest }) => {
     const existingPerson = acc.find((person) => person.name === name);
@@ -53,6 +57,7 @@ export default function MovieDetails({
     certifications && type === "movie"
       ? certifications.release_dates.find((item) => item.certification !== "")
       : certifications;
+  const [openModel, setOpenModel] = useState(false);
   return (
     <div
       className="flex flex-col lg:flex-row lg:items-start items-center lg:pl-16 lg:pr-12 h-full gap-10 w-full relative py-10 bg-cover bg-center bg-black/50 bg-blend-overlay"
@@ -67,16 +72,33 @@ export default function MovieDetails({
       }
     >
       <div className="lg:w-[25%] lg:min-w-[18rem] w-[80%]">
-        <div className="h-[450px] w-full">
+        <div
+          className={`h-[450px] w-full ring-1 ring-gray-300 ${
+            watchProvider.length ? "rounded-t-lg" : "rounded-lg"
+          }`}
+        >
+          {openModel ? (
+            <ModelPicture setOpenModel={setOpenModel} images={images} />
+          ) : null}
+
           {movie.poster_path || movie.backdrop_path ? (
-            <img
-              src={imgBaseUrl + (movie.poster_path || movie.backdrop_path)}
-              alt="image"
-              className={`w-full h-full object-cover ${
-                watchProvider.length ? "rounded-t-lg" : "rounded-lg"
-              }`}
-              loading="lazy"
-            />
+            <button
+              className="w-full h-full relative overflow-hidden group"
+              onClick={() => setOpenModel(true)}
+            >
+              <img
+                src={imgBaseUrl + (movie.poster_path || movie.backdrop_path)}
+                alt="image"
+                className={`w-full h-full object-cover duration-150 ease-in-out ${
+                  watchProvider.length ? "rounded-t-lg" : "rounded-lg"
+                } group-hover:blur group-hover:brightness-50`}
+                loading="lazy"
+              />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:flex flex-row gap-2 items-center text-white text-xl z-10 duration-150 ease-in-out">
+                <img src="/expand.svg" alt="expand" className="h-5 w-auto" />
+                <div>Expand</div>
+              </div>
+            </button>
           ) : (
             <div className="h-[450px] bg-gray-300 w-[300px] rounded-lg flex justify-center items-center">
               <ImageIcon sx={{ fontSize: 120, color: "gray" }} />
@@ -86,7 +108,7 @@ export default function MovieDetails({
         {watchProvider.length ? (
           <>
             <a
-              className="flex flex-row gap-3 justify-center bg-[#032541] w-full text-white rounded-b-lg py-2 items-center"
+              className="flex flex-row gap-3 justify-center bg-[#032541] w-full text-white rounded-b-lg py-2 items-center ring-1 ring-gray-300"
               href={watchProvider.link}
               target="_blank"
             >
@@ -135,8 +157,8 @@ export default function MovieDetails({
               </span>
             ) : null}
           </h1>
-          <div className="flex lg:justify-normal justify-between lg:gap-2 gap-1 mt-1">
-            <div>
+          <div className="flex lg:justify-normal justify-between lg:gap-2 flex-wrap mt-1">
+            <div className="sm:w-auto w-1/2 flex justify-center items-center sm:justify-start sm:items-start">
               <span className="ring-1 ring-gray-400 px-1 rounded-sm whitespace-nowrap">
                 {certification?.certification || certification?.rating || "NR"}
               </span>
@@ -144,7 +166,7 @@ export default function MovieDetails({
 
             {movie.runtime ? (
               <>
-                <div className="flex flex-col justify-center lg:justify-normal items-center lg:items-start lg:flex-row gap-1">
+                <div className="flex flex-col items-center lg:items-start lg:flex-row gap-1 sm:w-auto w-1/2">
                   <span className="text-center">
                     {movie.first_air_date?.split("-").reverse().join("/") ||
                       movie.release_date?.split("-").reverse().join("/")}
@@ -158,21 +180,21 @@ export default function MovieDetails({
                 <span className="hidden lg:inline">•</span>
               </>
             ) : null}
-            <div className="flex flex-row justify-center text-center">
+            <div className="flex flex-row justify-center text-center sm:w-auto w-1/2">
               <span>{movie.genres.map((item) => item.name).join(", ")}</span>
             </div>
             {movie.runtime ? (
               <>
                 <span className="hidden lg:inline">•</span>
-                <span>{`${parseInt(movie.runtime / 60)}h ${
-                  movie.runtime % 60
-                }m`}</span>
+                <span className="sm:w-auto w-1/2 flex justify-center items-center sm:justify-start sm:items-start">{`${parseInt(
+                  movie.runtime / 60
+                )}h ${movie.runtime % 60}m`}</span>
               </>
             ) : null}
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <div className="flex lg:gap-2 justify-between lg:justify-normal items-center">
+          <div className="flex lg:gap-2 justify-around sm:justify-normal items-center flex-wrap gap-y-4">
             <div className="flex flex-row gap-4 items-center">
               <CircularProgress
                 size="lg"

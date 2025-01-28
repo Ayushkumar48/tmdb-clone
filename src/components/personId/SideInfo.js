@@ -14,7 +14,7 @@ const imgBase = "https://image.tmdb.org/t/p/original";
 export default function SideInfo({ person, social, knownCredits }) {
   return (
     <div className="flex flex-col gap-10 w-1/4">
-      <div className="w-full">
+      <div className="w-full hidden sm:block">
         <img
           src={imgBase + person.profile_path}
           alt={person.name}
@@ -71,7 +71,7 @@ export default function SideInfo({ person, social, knownCredits }) {
           )}
           {person.homepage && (
             <div className="inline-flex items-center justify-center">
-              <Divider orientation="vertical" />
+              <Divider orientation="vertical" className="hidden lg:inline" />
               <a
                 href={person.homepage}
                 target="_blank"
@@ -85,8 +85,10 @@ export default function SideInfo({ person, social, knownCredits }) {
         </div>
 
         <div>
-          <h3 className="text-2xl font-semibold pb-2">Personal Info</h3>
-          <div className="flex flex-col gap-5 text-lg">
+          <h3 className="sm:text-2xl font-semibold pb-2 text-lg">
+            Personal Info
+          </h3>
+          <div className="flex flex-col gap-5 sm:text-lg">
             {person.known_for_department ? (
               <div className="flex flex-col">
                 <div className="font-semibold">Known For</div>

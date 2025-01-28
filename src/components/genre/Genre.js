@@ -36,7 +36,7 @@ export default function Genre({ type }) {
     fetchData();
   }, [genreId, page, type]);
   return (
-    <div className="flex-wrap flex flex-col gap-8 justify-between w-full py-10 px-10">
+    <div className="flex-wrap flex flex-col gap-8 justify-between w-full py-10 px-1 md:px-10">
       <div>
         <h2 className="text-3xl font-bold">
           Genre - {genreName.split("_").join(" ")}
@@ -45,7 +45,7 @@ export default function Genre({ type }) {
           See other genres <ArrowForward className="scale-75" />
         </a>
       </div>
-      <div className="grid gap-y-8 gap-x-6 scroll-smooth w-full grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
+      <div className="flex flex-wrap justify-evenly lg:grid gap-y-8 gap-x-2 lg:gap-x-4 scroll-smooth w-full lg:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
         {data.map((item, i) => (
           <Card key={i} data={item} type="movie" />
         ))}

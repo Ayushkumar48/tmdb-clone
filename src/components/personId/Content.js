@@ -1,8 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import { ArrowForwardIos } from "@mui/icons-material";
 import ReactMarkdown from "react-markdown";
 import React, { useState, useEffect, useRef } from "react";
 import KnownFor from "./KnownFor";
 import Career from "./Career";
+
+const imgBase = "https://image.tmdb.org/t/p/original";
 
 export default function Content({ person, credits }) {
   const [click, setClick] = useState(false);
@@ -18,14 +21,23 @@ export default function Content({ person, credits }) {
   const allCredits = [...(credits.crew || []), ...(credits.cast || [])];
   return (
     <div className="lg:w-[75%] w-[72%]">
-      <h2 className="text-[2.5rem] font-extrabold mb-5">
+      <h2 className="sm:text-[2.5rem] text-3xl text-center sm:text-left font-extrabold mb-5">
         {person.name || person.original_name}
       </h2>
       <div className="flex flex-col gap-5">
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-4 sm:gap-1">
+          <div className="w-full sm:hidden px-4">
+            <img
+              src={imgBase + person.profile_path}
+              alt={person.name}
+              className="h-auto w-full rounded-lg shadow"
+            />
+          </div>
           <h5 className="text-2xl font-semibold">Biography</h5>
           <div
-            className={`text-lg ${!click ? "line-clamp-6" : ""}`}
+            className={`text-lg text-justify ${
+              !click ? "sm:line-clamp-6 line-clamp-[10]" : ""
+            }`}
             ref={biographyRef}
           >
             <ReactMarkdown>{person.biography}</ReactMarkdown>

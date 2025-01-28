@@ -46,7 +46,7 @@ export default function PersonId() {
   }
 
   return (
-    <div className="flex flex-row gap-3 lg:gap-6 px-2 w-full lg:px-12 py-9">
+    <div className="flex flex-row gap-2.5 justify-between lg:gap-6 px-2 w-full lg:px-12 py-9">
       <SideInfo
         person={personDetails.person}
         social={personDetails.social}

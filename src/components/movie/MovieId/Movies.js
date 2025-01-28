@@ -55,6 +55,7 @@ export default function MovieId({ id, type }) {
             (a, b) => b.popularity - a.popularity
           )}
           type={type}
+          images={movieData.images}
         />
       </div>
       <div className="flex flex-col lg:flex-row gap-8 mx-1 lg:mx-12">
