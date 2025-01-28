@@ -18,8 +18,8 @@ export async function generateMetadata({ params }) {
       },
     });
     if (!response.ok) {
-      console.error("Failed to fetch movie data");
-      return { title: "Movie Details" };
+      console.error("Failed to fetch TV show data");
+      return { title: "TV Show Details" };
     }
     const data = (await response.json()).data;
     return {

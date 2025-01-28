@@ -104,10 +104,10 @@ export default function Movie({ data }) {
       <div className="flex flex-col lg:flex-row lg:gap-10">
         <div className="lg:flex flex-col gap-4 min-w-[23%] max-w-[23%] p-1 pb-60 sticky top-0 h-screen overflow-y-auto hidden">
           <Sort sendSort={setData}>Sort</Sort>
-          <WhereToWatch type="movie" sendWhereToWatch={setData}>
+          <WhereToWatch type={data.type} sendWhereToWatch={setData}>
             Where To Watch
           </WhereToWatch>
-          <Filters type="movie" sendFilters={setData}>
+          <Filters type={data.type} sendFilters={setData}>
             Filters
           </Filters>
           <button
@@ -142,10 +142,10 @@ export default function Movie({ data }) {
               >
                 <div className="py-1 flex flex-col gap-4" role="none">
                   <Sort sendSort={setData}>Sort</Sort>
-                  <WhereToWatch type="movie" sendWhereToWatch={setData}>
+                  <WhereToWatch type={data.type} sendWhereToWatch={setData}>
                     Where To Watch
                   </WhereToWatch>
-                  <Filters type="movie" sendFilters={setData}>
+                  <Filters type={data.type} sendFilters={setData}>
                     Filters
                   </Filters>
                   <button

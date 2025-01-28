@@ -44,7 +44,7 @@ export default function Home() {
     };
     fetchDetails();
   }, []);
-
+  console.log(data);
   return (
     <main className="flex flex-col gap-10 mb-10">
       <MainPicture />

@@ -53,7 +53,7 @@ export default function Card({ data }) {
           <a
             key={i}
             className="flex flex-col gap-4 shadow-2xl shadow-white"
-            href={`/movie/${item.id}`}
+            href={`/${item?.first_air_date ? "tv" : "movie"}/${item.id}`}
           >
             <div className="relative w-[155px] hover:scale-105 duration-200 ease-in-out">
               {item.poster_path || item.backdrop_path ? (
