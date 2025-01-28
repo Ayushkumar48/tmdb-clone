@@ -6,6 +6,7 @@ import { Search, Add, Notifications, Close } from "@mui/icons-material";
 import NavLi from "./NavLi";
 import Profile from "./Profile";
 import { usePathname } from "next/navigation";
+import MobileNavbar from "./MobileNavbar";
 
 export default function Header() {
   const pathname = usePathname();
@@ -59,73 +60,89 @@ export default function Header() {
 
   return (
     <div>
-      <div className="flex flex-row text-sm justify-between bg-[#032541] px-10 py-5 font-bold items-center text-white">
-        <div className="flex flex-row gap-8 justify-center items-center">
-          <a href="/" className="w-[170px]">
-            <Image
-              src="/tmdb-logo.svg"
-              alt="tmdb-logo"
-              width={150}
-              height={20}
-              style={{ width: "auto", height: "auto" }}
-              className="select-none"
-              priority
-            />
-          </a>
-          {navlis.map((item, i) => (
-            <NavLi key={i} data={item}>
-              {item.name}
+      <div>
+        <div className="lg:flex flex-row text-sm w-full justify-between bg-[#032541] px-10 py-5 font-bold items-center text-white hidden">
+          <div className="flex flex-row gap-8 justify-center items-center">
+            <a href="/" className="w-[170px]">
+              <Image
+                src="/tmdb-logo.svg"
+                alt="tmdb-logo"
+                width={150}
+                height={20}
+                style={{ width: "auto", height: "auto" }}
+                className="select-none"
+                priority
+              />
+            </a>
+            {navlis.map((item, i) => (
+              <NavLi key={i} data={item}>
+                {item.name}
+              </NavLi>
+            ))}
+          </div>
+
+          <div className="flex flex-row gap-8 justify-center items-center">
+            <NavLi data={addShow}>
+              <Add
+                sx={{
+                  scale: 1.25,
+                }}
+              />
             </NavLi>
-          ))}
+            <a
+              href="/"
+              className="border-[1.1px] rounded-[0.2rem] py-[2px] px-[5px] font-normal text-[12px] border-white hover:border-black hover:text-black hover:bg-white duration-200 ease-in-out"
+            >
+              EN
+            </a>
+            <a href="/">
+              <Notifications />
+            </a>
+            <Profile />
+            {isClient && !searchOn ? (
+              <button>
+                <Search
+                  className="text-[#1BB8D8] scale-[1.18] brightness-125 duration-200 ease-in-out hover:brightness-105"
+                  onClick={() => setSearchOn(true)}
+                />
+              </button>
+            ) : (
+              <button>
+                <Close
+                  className="text-white scale-[1.18] brightness-125 duration-200 ease-in-out hover:brightness-105"
+                  onClick={() => setSearchOn(false)}
+                />
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className="flex flex-row gap-8 justify-center items-center">
-          <NavLi data={addShow}>
-            <Add
-              sx={{
-                scale: 1.25,
-              }}
-            />
-          </NavLi>
-          <a
-            href="/"
-            className="border-[1.1px] rounded-[0.2rem] py-[2px] px-[5px] font-normal text-[12px] border-white hover:border-black hover:text-black hover:bg-white duration-200 ease-in-out"
-          >
-            EN
-          </a>
-          <a href="/">
-            <Notifications />
-          </a>
-          <Profile />
-          {isClient && !searchOn ? (
-            <button>
-              <Search
-                className="text-[#1BB8D8] scale-[1.18] brightness-125 duration-200 ease-in-out hover:brightness-105"
-                onClick={() => setSearchOn(true)}
-              />
-            </button>
-          ) : (
-            <button>
-              <Close
-                className="text-white scale-[1.18] brightness-125 duration-200 ease-in-out hover:brightness-105"
-                onClick={() => setSearchOn(false)}
-              />
-            </button>
-          )}
+        <div
+          className={`relative hidden ${
+            searchOn ? "lg:block" : "lg:hidden"
+          } transition-all duration-300 ease-in-out`}
+        >
+          <Search className="absolute -translate-y-1/2 top-1/2 left-28 text-black" />
+          <input
+            type="text"
+            className="w-full h-12 pl-36 italic text-slate-400 outline-none border-b-[1.5px] border-black"
+            placeholder="Search for a movie, tv show, person..."
+          />
         </div>
       </div>
 
-      <div
-        className={`relative ${
-          searchOn ? "block" : "hidden"
-        } transition-all duration-300 ease-in-out`}
-      >
-        <Search className="absolute -translate-y-1/2 top-1/2 left-28 text-black" />
-        <input
-          type="text"
-          className="w-full h-12 pl-36 italic text-slate-400 outline-none border-b-[1.5px] border-black"
-          placeholder="Search for a movie, tv show, person..."
-        />
+      <div className="lg:hidden w-full bg-[#032541] h-16 flex flex-row justify-between items-center py-3 px-6">
+        <MobileNavbar />
+        <a href="/" className="h-full">
+          <Image
+            src="/tmdb-short.svg"
+            alt="tmdb-logo"
+            className="select-none h-full w-auto"
+            width={40}
+            height={20}
+          />
+        </a>
+        <div></div>
       </div>
     </div>
   );

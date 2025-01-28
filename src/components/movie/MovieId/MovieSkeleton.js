@@ -4,10 +4,10 @@ import { Box } from "@mui/joy";
 export default function MovieSkeleton() {
   const cast = new Array(10).fill(null);
   return (
-    <div className="px-16 py-12 w-full">
-      <div className="flex flex-row gap-10 w-full pb-8">
+    <div className="px-2 lg:px-16 py-12 w-full">
+      <div className="flex flex-col justify-center items-center lg:flex-row gap-10 w-full pb-8">
         <Skeleton variant="rounded" height={450} width={300} />
-        <div className="flex flex-col gap-4 w-[65%]">
+        <div className="flex flex-col gap-4 lg:w-[65%] w-full">
           <div>
             <div className="flex flex-row gap-1">
               <Skeleton
@@ -112,8 +112,8 @@ export default function MovieSkeleton() {
         </div>
       </div>
       <Divider />
-      <div className="flex flex-row gap-10">
-        <div className="flex flex-col gap-10 w-[80%]">
+      <div className="flex flex-col lg:flex-row gap-10 w-full">
+        <div className="flex flex-col gap-10 w-full lg:w-[80%]">
           <div className="w-full">
             <div className="pl-4">
               <Skeleton
@@ -126,8 +126,6 @@ export default function MovieSkeleton() {
               <Box
                 className={`scrollbar-thin scrollbar-track-slate-200 scrollbar-thumb-slate-400 scrollbar-thumb-rounded-md scrollbar-track-rounded-md overflow-auto flex gap-4 py-2 px-2 scroll-smooth`}
                 sx={{
-                  pb: 4,
-                  pl: 2,
                   scrollSnapType: "x mandatory",
                   "& > *": {
                     scrollSnapAlign: "center",

@@ -47,7 +47,7 @@ export default function WhereToWatch({ children, type, sendWhereToWatch }) {
   }, [selectedCountry, selectedWatchProviders, sendWhereToWatch]);
 
   return (
-    <div className="shadow-lg rounded-md ring-1 w-full ring-gray-900/10">
+    <div className="shadow-sm rounded-md ring-1 w-full ring-gray-900/10">
       <button
         onClick={() => setOpen(!open)}
         className="px-3 py-3 flex flex-row justify-between w-full"
@@ -126,7 +126,7 @@ export default function WhereToWatch({ children, type, sendWhereToWatch }) {
                         : "opacity-0 group-hover:opacity-100"
                     } transition-opacity duration-150 ease-in-out`}
                   >
-                    <img src="./done.svg" alt="done" className="scale-[0.55]" />
+                    <img src="/done.svg" alt="done" className="scale-[0.55]" />
                   </div>
                 </button>
               ))}

@@ -64,7 +64,7 @@ export default function Card({ data, type }) {
                 thickness={3}
                 determinate
                 variant="plain"
-                className="bg-slate-900 font-bold hover:scale-110 hover:cursor-pointer duration-150 ease-in-out ring-1 ring-gray-600 ring-inset"
+                className="bg-slate-900 font-bold hover:cursor-pointer duration-150 ease-in-out ring-1 ring-gray-600 ring-inset"
                 value={parseInt(Math.round(data.vote_average * 10))}
                 sx={{
                   "--CircularProgress-progressColor":

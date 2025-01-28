@@ -6,7 +6,7 @@ import { BrokenImage } from "@mui/icons-material";
 
 const imgBaseUrl = "https://image.tmdb.org/t/p/original";
 
-export default function Recommandations({ recommendations, type }) {
+export default function Recommandations({ recommendations }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const boxRef = useRef(null);
 
@@ -25,8 +25,8 @@ export default function Recommandations({ recommendations, type }) {
   }, []);
 
   return (
-    <div className="flex flex-col mb-10">
-      <h2 className="text-2xl font-semibold pl-4">Recommandations</h2>
+    <div className="flex flex-col lg:mb-10">
+      <h2 className="text-2xl font-semibold lg:pl-4">Recommandations</h2>
       <div className="relative">
         <Box
           ref={boxRef}

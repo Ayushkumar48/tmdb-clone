@@ -55,18 +55,18 @@ export default function MovieDetails({
       : certifications;
   return (
     <div
-      className="flex flex-row pl-16 h-full gap-10 w-full relative py-10 bg-cover bg-center bg-black/50 bg-blend-overlay"
+      className="flex flex-col lg:flex-row lg:items-start items-center lg:pl-16 h-full gap-10 w-full relative py-10 bg-cover bg-center bg-black/50 bg-blend-overlay"
       style={
         movie.poster_path || movie.backdrop_path
           ? {
               backgroundImage: `url('${
-                imgBaseUrl + (movie.poster_path || movie.backdrop_path)
+                imgBaseUrl + (movie.backdrop_path || movie.poster_path)
               }')`,
             }
           : { backgroundColor: "#1f2937" }
       }
     >
-      <div className="w-[21.6%]">
+      <div className="lg:w-[21.6%] w-[80%]">
         <div className="h-[450px] w-full">
           {movie.poster_path || movie.backdrop_path ? (
             <img
@@ -117,7 +117,7 @@ export default function MovieDetails({
           </>
         ) : null}
       </div>
-      <div className="flex flex-col gap-5 text-white justify-center w-[70%] brightness-110">
+      <div className="flex flex-col gap-5 text-white justify-center w-full lg:px-0 px-3 lg:w-[70%] brightness-110">
         <div className="flex flex-col">
           <h1 className="text-4xl font-bold flex gap-2">
             <span>
@@ -135,26 +135,35 @@ export default function MovieDetails({
               </span>
             ) : null}
           </h1>
-          <div className="flex gap-2 mt-1">
-            <span className="ring-1 ring-gray-400 px-1 rounded-sm">
-              {certification?.certification || certification?.rating || "NR"}
-            </span>
+          <div className="flex lg:justify-normal justify-between lg:gap-2 gap-1 mt-1">
+            <div>
+              <span className="ring-1 ring-gray-400 px-1 rounded-sm whitespace-nowrap">
+                {certification?.certification || certification?.rating || "NR"}
+              </span>
+            </div>
+
             {movie.runtime ? (
               <>
-                <span>
-                  {movie.first_air_date?.split("-").reverse().join("/") ||
-                    movie.release_date?.split("-").reverse().join("/")}{" "}
-                  {certifications?.iso_3166_1
-                    ? "(" + certifications.iso_3166_1 + ")"
-                    : null}
-                </span>
-                <span>•</span>
+                <div className="flex flex-col justify-center lg:justify-normal items-center lg:items-start lg:flex-row gap-1">
+                  <span className="text-center">
+                    {movie.first_air_date?.split("-").reverse().join("/") ||
+                      movie.release_date?.split("-").reverse().join("/")}
+                  </span>
+                  <span>
+                    {certifications?.iso_3166_1
+                      ? "(" + certifications.iso_3166_1 + ")"
+                      : null}
+                  </span>
+                </div>
+                <span className="hidden lg:inline">•</span>
               </>
             ) : null}
-            <span>{movie.genres.map((item) => item.name).join(", ")}</span>
+            <div className="flex flex-row justify-center text-center">
+              <span>{movie.genres.map((item) => item.name).join(", ")}</span>
+            </div>
             {movie.runtime ? (
               <>
-                <span>•</span>
+                <span className="hidden lg:inline">•</span>
                 <span>{`${parseInt(movie.runtime / 60)}h ${
                   movie.runtime % 60
                 }m`}</span>
@@ -163,7 +172,7 @@ export default function MovieDetails({
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <div className="flex gap-2 items-center">
+          <div className="flex lg:gap-2 justify-between items-center">
             <CircularProgress
               size="lg"
               thickness={5}
@@ -207,7 +216,7 @@ export default function MovieDetails({
                 </div>
               </div>
             </CircularProgress>
-            <div className="font-bold">
+            <div className="font-bold lg:inline hidden">
               <div>User</div>
               <div>Score</div>
             </div>
@@ -251,7 +260,9 @@ export default function MovieDetails({
         <div className="flex flex-col gap-2">
           <h3 className="text-lg text-[#ffffffa9] italic">{movie.tagline}</h3>
           <div className="text-xl font-semibold">Overview</div>
-          <div className="text-gray-200 line-clamp-6">{movie.overview}</div>
+          <div className="text-gray-200 line-clamp-6 text-justify lg:text-left">
+            {movie.overview}
+          </div>
         </div>
         <div className="flex flex-wrap gap-y-7">
           {credits.slice(0, 5).map((item, i) => (

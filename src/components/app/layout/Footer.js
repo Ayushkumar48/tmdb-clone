@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <div className="bg-[#032541] text-white gap-8 flex justify-center items-center py-20 flex-row">
+    <div className="bg-[#032541] text-white gap-x-8 gap-y-0 flex justify-center items-center py-20 flex-col lg:flex-row">
       <div className="w-40 h-40">
         <Image
           src="/tmdb-extended-logo.svg"

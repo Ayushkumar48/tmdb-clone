@@ -17,7 +17,7 @@ export default function Content({ person, credits }) {
   }, [person.biography]);
   const allCredits = [...(credits.crew || []), ...(credits.cast || [])];
   return (
-    <div className="w-[75%]">
+    <div className="lg:w-[75%] w-[72%]">
       <h2 className="text-[2.5rem] font-extrabold mb-5">
         {person.name || person.original_name}
       </h2>

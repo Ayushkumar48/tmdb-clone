@@ -32,7 +32,7 @@ export default function Card({ data }) {
   return (
     <Box
       ref={boxRef}
-      className="scrollbar-thin scrollbar-track-slate-200 scrollbar-thumb-slate-400 scrollbar-thumb-rounded-md scrollbar-track-rounded-md bg-[url('/background.svg')]"
+      className="scrollbar-thin scrollbar-track-slate-200 scrollbar-thumb-slate-400 scrollbar-thumb-rounded-md scrollbar-track-rounded-md bg-[url('/background.svg')] w-full"
       sx={{
         display: "flex",
         gap: 3,
@@ -156,8 +156,8 @@ export default function Card({ data }) {
           absolute top-0 right-0 h-full w-16
           bg-gradient-to-l from-white via-[#ffffff] to-transparent 
           pointer-events-none 
-          transition-opacity duration-300 ease-in-out
-          ${isScrolled ? "opacity-0" : "opacity-100"}
+          transition-opacity duration-300 ease-in-out opacity-0 
+          ${isScrolled ? "lg:opacity-0" : "lg:opacity-100"}
         `}
       ></div>
     </Box>

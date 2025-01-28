@@ -4,7 +4,7 @@ import Movie from "@/components/movie/Movie";
 export default function MovieComponent() {
   return (
     <Movie
-      data={{ type: "movie", title: "Popular TV Movies", path: "/popular" }}
+      data={{ type: "movie", title: "Popular Movies", path: "/popular" }}
     />
   );
 }

@@ -29,7 +29,7 @@ export default function Filters({ children, type, sendFilters }) {
     fetchData();
   }, [type]);
   return (
-    <div className="shadow-lg rounded-md ring-1 w-full ring-gray-900/10">
+    <div className="shadow-sm rounded-md ring-1 w-full ring-gray-900/10">
       <button
         onClick={() => setOpen(!open)}
         className="px-3 py-3 flex flex-row justify-between w-full"

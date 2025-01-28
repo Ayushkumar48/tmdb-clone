@@ -30,14 +30,14 @@ export default function Person() {
   }, [page]);
   const skeletonArray = new Array(20).fill(null);
   return (
-    <div className="mx-10 py-6">
+    <div className="lg:px-10 px-2 py-6">
       <h1 className="text-2xl font-extrabold pb-6">Popular People</h1>
-      <div className="flex flex-wrap justify-between gap-4 gap-y-8">
+      <div className="flex flex-wrap justify-between lg:gap-x-4 gap-x-[1%] gap-y-8">
         {response.length > 0 ? (
           response.map((item, i) => (
             <a
               key={i}
-              className="w-80 flex flex-col rounded-lg overflow-hidden ring-1 ring-gray-300 shadow-lg"
+              className="lg:w-80 w-[49%] flex flex-col rounded-lg overflow-hidden ring-1 ring-gray-300 shadow-lg"
               href={"/person/" + item.id}
             >
               <div className="w-full">
@@ -65,9 +65,9 @@ export default function Person() {
             </a>
           ))
         ) : (
-          <div className="flex flex-wrap justify-between gap-4 gap-y-8">
+          <div className="flex flex-wrap justify-between lg:gap-x-4 gap-x-[1%] gap-y-8 w-full">
             {skeletonArray.map((item, i) => (
-              <div key={i} className="w-80 h-[25rem] flex flex-col">
+              <div key={i} className="lg:w-80 w-[49%] h-[25rem] flex flex-col">
                 <Skeleton variant="rounded" width={"100%"} height={"100%"} />
                 <Skeleton
                   variant="text"

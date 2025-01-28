@@ -38,23 +38,25 @@ export default function Review({ reviews }) {
   });
 
   return (
-    <div className="pl-4">
+    <div className="lg:pl-4 px-1">
       <h4 className="text-2xl font-semibold pb-2">Social ({reviews.length})</h4>
-      <div className="flex flex-col gap-6 ring-1 ring-gray-300 py-4 px-6 rounded-lg shadow-lg">
+      <div className="flex flex-col gap-6 ring-1 ring-gray-300 py-4 lg:px-6 px-2 rounded-lg shadow-lg">
         <div className="flex flex-row gap-6 items-center">
-          {review?.author_details?.avatar_path ? (
-            <img
-              className="w-12 h-12 rounded-full shadow-sm cursor-pointer"
-              src={imgBaseUrl + review?.author_details?.avatar_path}
-              alt="use-avatar"
-            />
-          ) : (
-            <div className="w-12 h-12 flex justify-center items-center bg-red-600 text-white rounded-full shadow-sm cursor-pointer">
-              {(review.author_details.name ||
-                review.author_details.username ||
-                review.author)[0].toUpperCase() || "U"}
-            </div>
-          )}
+          <div>
+            {review?.author_details?.avatar_path ? (
+              <img
+                className="lg:w-12 lg:h-12 h-10 w-10 rounded-full shadow-sm cursor-pointer"
+                src={imgBaseUrl + review?.author_details?.avatar_path}
+                alt="use-avatar"
+              />
+            ) : (
+              <div className="lg:w-12 lg:h-12 h-10 w-10 flex justify-center items-center bg-red-600 text-white rounded-full shadow-sm cursor-pointer">
+                {(review.author_details.name ||
+                  review.author_details.username ||
+                  review.author)[0].toUpperCase() || "U"}
+              </div>
+            )}
+          </div>
 
           <div className="flex flex-col gap-1">
             <div className="text-xl font-bold hover:text-[#000000a2] cursor-pointer">
@@ -64,9 +66,10 @@ export default function Review({ reviews }) {
                 review.author ||
                 "User"}
             </div>
-            <div className="flex flex-row gap-2">
-              <div className="bg-[#032541] px-2 py-[0.6px] rounded-lg text-white">
-                ★ {Math.round(review.author_details.rating * 10)}{" "}
+            <div className="flex flex-row gap-1 lg:gap-2 justify-center items-center">
+              <div className="bg-[#032541] px-1 lg:px-2 lg:py-[0.6px] rounded-lg text-white flex flex-row gap-x-1 justify-center items-center">
+                <span>★</span>
+                {Math.round(review.author_details.rating * 10)}{" "}
                 <span className="text-[10px]">%</span>
               </div>
               <div>
@@ -82,7 +85,7 @@ export default function Review({ reviews }) {
             </div>
           </div>
         </div>
-        <div className="line-clamp-3">
+        <div className="line-clamp-3 text-justify">
           <Markdown>{review.content}</Markdown>
         </div>
       </div>

@@ -13,7 +13,7 @@ const imgBase = "https://image.tmdb.org/t/p/original";
 
 export default function SideInfo({ person, social, knownCredits }) {
   return (
-    <div className="flex flex-col gap-10 w-[25%]">
+    <div className="flex flex-col gap-10 w-1/4">
       <div className="w-full">
         <img
           src={imgBase + person.profile_path}
@@ -22,57 +22,68 @@ export default function SideInfo({ person, social, knownCredits }) {
         />
       </div>
       <div className="flex flex-col gap-5">
-        <div className="flex flex-row gap-6">
-          {social.instagram_id ? (
+        <div className="flex flex-wrap md:justify-normal justify-between gap-1 lg:flex-row md:gap-6">
+          {social.instagram_id && (
             <a
               href={`https://instagram.com/${social.instagram_id}`}
               target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center"
             >
               <Instagram
                 sx={{ fontSize: 30 }}
                 className="hover:cursor-pointer"
               />
             </a>
-          ) : null}
-          {social.facebook_id ? (
+          )}
+          {social.facebook_id && (
             <a
               href={`https://www.facebook.com/${social.facebook_id}`}
               target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center"
             >
               <Facebook
                 sx={{ fontSize: 30 }}
                 className="hover:cursor-pointer"
               />
             </a>
-          ) : null}
-          {social.twitter_id ? (
+          )}
+          {social.twitter_id && (
             <a
               href={`https://twitter.com/${social.twitter_id}`}
               target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center"
             >
               <Twitter sx={{ fontSize: 30 }} className="hover:cursor-pointer" />
             </a>
-          ) : null}
-          {social.youtube_id ? (
+          )}
+          {social.youtube_id && (
             <a
               href={`https://www.youtube.com/${social.youtube_id}`}
               target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center"
             >
               <YouTube sx={{ fontSize: 30 }} className="hover:cursor-pointer" />
             </a>
-          ) : null}
-          {person.homepage ? (
-            <>
+          )}
+          {person.homepage && (
+            <div className="inline-flex items-center justify-center">
               <Divider orientation="vertical" />
               <a
-                href={`https://www.youtube.com/${person.homepage}`}
+                href={person.homepage}
                 target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center"
               >
                 <Link sx={{ fontSize: 30 }} className="hover:cursor-pointer" />
               </a>
-            </>
-          ) : null}
+            </div>
+          )}
         </div>
+
         <div>
           <h3 className="text-2xl font-semibold pb-2">Personal Info</h3>
           <div className="flex flex-col gap-5 text-lg">

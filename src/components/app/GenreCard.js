@@ -60,11 +60,11 @@ export default function GenreCard({ data, type }) {
       </Box>
       <div
         className={`
-          absolute top-0 right-0 h-full w-16 
-          bg-gradient-to-l from-white to-transparent 
+          absolute top-0 right-0 h-full w-16
+          bg-gradient-to-l from-white via-[#ffffff] to-transparent 
           pointer-events-none 
-          transition-opacity duration-300 ease-in-out
-          ${isScrolled ? "opacity-0" : "opacity-100"}
+          transition-opacity duration-300 ease-in-out opacity-0 
+          ${isScrolled ? "lg:opacity-0" : "lg:opacity-100"}
         `}
       ></div>
     </div>

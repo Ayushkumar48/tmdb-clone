@@ -25,7 +25,7 @@ export default function Cast({ cast }) {
 
   return (
     <div className="flex flex-col">
-      <h2 className="text-2xl font-semibold pl-4">Top Billed Cast</h2>
+      <h2 className="text-2xl font-semibold lg:pl-4">Top Billed Cast</h2>
       <div className="relative">
         <Box
           ref={boxRef}

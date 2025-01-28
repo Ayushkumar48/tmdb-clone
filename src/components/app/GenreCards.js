@@ -166,14 +166,14 @@ export default function GenreCards({ name }) {
   };
 
   return (
-    <div className="flex flex-col gap-8 pl-4" id="genres">
+    <div className="flex flex-col gap-8 lg:pl-4" id="genres">
       <Tabs
         value={value}
         onChange={handleChange}
         aria-label="Trending Tabs"
         sx={{ bgcolor: "transparent" }}
       >
-        <div className="flex flex-row gap-8 items-center ml-8">
+        <div className="flex flex-col gap-8 items-center lg:pl-8 lg:flex-row w-full">
           <div className="text-2xl font-semibold duration-300">{name}</div>
           <TabList
             disableUnderline

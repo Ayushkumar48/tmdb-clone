@@ -18,22 +18,21 @@ export default function Cards({ path, children }) {
   };
 
   return (
-    <div className="flex flex-col gap-8 ml-4">
+    <div className="flex flex-col gap-8 lg:ml-4">
       <Tabs
         value={value}
         onChange={handleChange}
         aria-label="Trending Tabs"
         sx={{ bgcolor: "transparent" }}
       >
-        <div className="flex flex-row gap-8 items-center ml-8">
+        <div className="flex flex-col lg:flex-row gap-8 items-center lg:pl-8 w-full">
           <div className="text-2xl font-medium duration-300">{children}</div>
           <TabList
             disableUnderline
             sx={{
               p: 0,
               m: 0,
-              gap: 2,
-              fontSize: 16,
+
               fontWeight: 620,
               borderRadius: 9999,
               border: "1px solid black",
@@ -44,6 +43,7 @@ export default function Cards({ path, children }) {
                 color: "#19aa84",
               },
             }}
+            className="gap-0 lg:gap-2 text-sm"
           >
             {Object.entries(data).map(([k, v], index) => (
               <Tab key={index} disableIndicator value={(index + 1).toString()}>
