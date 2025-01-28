@@ -42,7 +42,7 @@ export default function ModelPicture({ setOpenModel, images }) {
         <div className="relative w-full h-full flex flex-col justify-between py-6">
           <h5 className="text-center text-2xl font-semibold">Images / Logos</h5>
           <div className="absolute top-2 right-2 flex flex-row gap-2 items-center">
-            <div className="ring-1 ring-gray-100 px-1 py-0.5 rounded-sm">
+            <div className="ring-1 ring-gray-100 px-1 py-0.5 rounded-sm hidden lg:inline">
               Esc
             </div>
             <button
