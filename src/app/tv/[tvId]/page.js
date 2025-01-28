@@ -58,7 +58,6 @@ export default async function TVId({ params }) {
     }
     const data = (await response.json()).data;
 
-    console.log(data);
     if (!(data?.name || data.original_name)) {
       notFound();
     }

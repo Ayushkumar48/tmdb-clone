@@ -11,7 +11,6 @@ export default function ModelPicture({ setOpenModel, images }) {
     ...(images?.posters || []),
     ...(images?.logos || []),
   ];
-  console.log(allImages);
   const [currentImage, setCurrentImage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
