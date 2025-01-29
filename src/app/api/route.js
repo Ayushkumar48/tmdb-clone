@@ -56,7 +56,7 @@ export async function POST(request) {
       combinedData.certifications.find(
         (item) => item.iso_3166_1 === combinedData.movie.origin_country[0]
       ) || combinedData.certifications[0];
-    combinedData.certifications = cert;
+    combinedData.certifications = cert || {};
     return NextResponse.json({ data: combinedData });
   } catch (err) {
     console.error(err);

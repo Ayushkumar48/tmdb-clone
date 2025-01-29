@@ -60,7 +60,7 @@ export default function MovieId({ id, type }) {
       </div>
       <div className="flex flex-col lg:flex-row gap-8 mx-1 lg:mx-12">
         <div className="flex flex-col gap-8 w-full lg:w-[78%]">
-          <Cast cast={movieData.credits.cast} type={type} />
+          <Cast cast={movieData.credits.cast} type={type} id={id} />
           <Divider />
           {type === "tv" ? (
             <>

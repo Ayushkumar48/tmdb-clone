@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 
 const imgBaseUrl = "https://image.tmdb.org/t/p/original";
 
-export default function Cast({ cast }) {
+export default function Cast({ cast, type, id }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const boxRef = useRef(null);
 
@@ -88,9 +88,12 @@ export default function Cast({ cast }) {
           )}
           {cast.length >= 10 ? (
             <div className="flex justify-center items-center">
-              <button className="font-bold whitespace-nowrap hover:text-[#00000075]">
+              <a
+                className="font-bold whitespace-nowrap hover:text-[#00000075]"
+                href={`/${type}/${id}/cast`}
+              >
                 View More <ArrowRightAlt />
-              </button>
+              </a>
             </div>
           ) : null}
         </Box>
